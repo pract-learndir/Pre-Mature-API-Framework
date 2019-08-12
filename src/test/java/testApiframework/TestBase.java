@@ -15,36 +15,47 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
 public class TestBase {
-	
+
 	public ResponseSpecBuilder respbuilder;
 	public ResponseSpecification respoSpec;
-	
+
 	public RequestSpecification reqSpec;
 	public RequestSpecBuilder reqSpebuilder;
-	
+
 	{
-		
-		 RestAssured.baseURI="https://reqres.in";
-	}
-	
-	@BeforeClass public void setupResponseSpecBuilder() {
-		
-		
-		respbuilder = new ResponseSpecBuilder();
-		respbuilder.expectStatusCode(200);
-		
-		respoSpec=respbuilder.build();
-		
-		
-	}
-	
-	@BeforeTest public void SetupPreRequisite(){
-		
-//		reqSpebuilder.
-		reqSpec = reqSpebuilder.build();
-		
+
+		 RestAssured.baseURI = "https://reqres.in";
 	}
 
-	
-	
+	@BeforeClass
+	public void setup0ResponseSpecBuilder() {
+
+		respbuilder = new ResponseSpecBuilder();
+		respbuilder.expectStatusCode(200);
+
+		respoSpec = respbuilder.build();
+		System.out.println("Before class exe..");
+
+	}
+
+
+
+	@BeforeTest
+	public void Setup1PreRequisite() {
+
+		try {
+			reqSpebuilder =  new RequestSpecBuilder();
+			reqSpec = reqSpebuilder.build();
+
+		} catch (Exception e) {
+			// System.out.println(e.getStackTrace());
+			System.out.println("exception nullpoutiner catched..");
+			e.getMessage();
+
+		}
+
+		System.out.println("Before Test...exe...");
+
+	}
+
 }
